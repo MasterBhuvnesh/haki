@@ -1,6 +1,7 @@
 appId: com.electron.app
 productName: haki
 directories:
+  output: dist
   buildResources: build
 files:
   - '!**/.vscode/*'
