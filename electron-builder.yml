@@ -4,9 +4,9 @@ directories:
   output: dist
   buildResources: resources
 files:
+  - 'out/**' # include the build output so entry file (out/main/index.js) is packaged
   - '!**/.vscode/*'
   - '!src/*'
-  - '!out/**'
   - '!electron.vite.config.{js,ts,mjs,cjs}'
   - '!{.eslintcache,eslint.config.mjs,.prettierignore,.prettierrc.yaml,dev-app-update.yml,CHANGELOG.md,README.md}'
   - '!{.env,.env.*,.npmrc,pnpm-lock.yaml}'
