@@ -6,7 +6,7 @@ function App(): React.JSX.Element {
   return (
     <>
       <div className="welcome">Welcome to GDG RBU</div>
-      <div className="welcome">Testing 22:50</div>
+      <div className="welcome">Testing 22:57</div>
 
       <div className="action">
         <a target="_blank" rel="noreferrer" onClick={ipcHandle}>
