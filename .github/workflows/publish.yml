@@ -41,7 +41,9 @@ jobs:
         uses: softprops/action-gh-release@v1
         # This step will now run on every push to main or a tag
         with:
-          draft: true
+          draft: false
+          prerelease: false
+          generate_release_notes: true
           # This tells the action not to fail if it can't find
           # e.g. .exe files on Linux, or .AppImage on Windows.
           fail_on_unmatched_files: false
