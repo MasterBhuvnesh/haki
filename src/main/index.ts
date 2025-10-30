@@ -2,6 +2,11 @@ import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
+import { autoUpdater } from 'electron-updater'
+
+// Configure auto-updater
+autoUpdater.autoDownload = false
+autoUpdater.autoInstallOnAppQuit = true
 
 function createWindow(): void {
   // Create the browser window.
@@ -40,7 +45,7 @@ function createWindow(): void {
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
   // Set app user model id for windows
-  electronApp.setAppUserModelId('com.electron')
+  electronApp.setAppUserModelId('tech.mldocs')
 
   // Default open or close DevTools by F12 in development
   // and ignore CommandOrControl + R in production.
@@ -52,6 +57,76 @@ app.whenReady().then(() => {
   // IPC test
   ipcMain.on('ping', () => console.log('pong'))
 
+  // ---------------------------------------------
+  // Auto Updater Section
+  // Auto-updater IPC handlers
+  ipcMain.handle('check-for-updates', async () => {
+    try {
+      const result = await autoUpdater.checkForUpdates()
+      return {
+        updateAvailable: result?.updateInfo?.version !== app.getVersion(),
+        currentVersion: app.getVersion(),
+        latestVersion: result?.updateInfo?.version || app.getVersion(),
+        updateInfo: result?.updateInfo
+      }
+    } catch (error) {
+      console.error('Error checking for updates:', error)
+      return {
+        updateAvailable: false,
+        currentVersion: app.getVersion(),
+        latestVersion: app.getVersion(),
+        error: error instanceof Error ? error.message : 'Unknown error'
+      }
+    }
+  })
+
+  ipcMain.handle('download-update', async () => {
+    try {
+      await autoUpdater.downloadUpdate()
+      return { success: true }
+    } catch (error) {
+      console.error('Error downloading update:', error)
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Unknown error'
+      }
+    }
+  })
+
+  ipcMain.handle('install-update', () => {
+    autoUpdater.quitAndInstall(false, true)
+  })
+
+  ipcMain.handle('get-app-version', () => {
+    return app.getVersion()
+  })
+
+  // Auto-updater event listeners
+  autoUpdater.on('update-available', (info) => {
+    console.log('Update available:', info)
+    BrowserWindow.getAllWindows()[0]?.webContents.send('update-available', info)
+  })
+
+  autoUpdater.on('update-not-available', (info) => {
+    console.log('Update not available:', info)
+    BrowserWindow.getAllWindows()[0]?.webContents.send('update-not-available', info)
+  })
+
+  autoUpdater.on('download-progress', (progress) => {
+    console.log('Download progress:', progress)
+    BrowserWindow.getAllWindows()[0]?.webContents.send('download-progress', progress)
+  })
+
+  autoUpdater.on('update-downloaded', (info) => {
+    console.log('Update downloaded:', info)
+    BrowserWindow.getAllWindows()[0]?.webContents.send('update-downloaded', info)
+  })
+
+  autoUpdater.on('error', (error) => {
+    console.error('Auto-updater error:', error)
+    BrowserWindow.getAllWindows()[0]?.webContents.send('update-error', error.message)
+  })
+  // ---------------------------------------------
   createWindow()
 
   app.on('activate', function () {

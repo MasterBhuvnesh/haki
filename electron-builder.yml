@@ -1,8 +1,8 @@
-appId: com.electron.app
+appId: tech.mldocs.haki
 productName: haki
 directories:
   output: dist
-  buildResources: resources
+  buildResources: build
 files:
   - 'out/**' # include the build output so entry file (out/main/index.js) is packaged
   - '!**/.vscode/*'
@@ -44,6 +44,7 @@ publish:
   owner: MasterBhuvnesh
   repo: haki
   provider: github
+  releaseType: release
   updaterCacheDirName: haki-updater
   publisherName:
     - MasterBhuvnesh
