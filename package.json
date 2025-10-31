@@ -1,6 +1,6 @@
 {
   "name": "haki",
-  "version": "3.7.1",
+  "version": "3.7.2",
   "description": "An Electron application with React and TypeScript",
   "main": "./out/main/index.js",
   "author": "MasterBhuvnesh",
