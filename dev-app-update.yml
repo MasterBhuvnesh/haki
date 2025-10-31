@@ -1,6 +1,7 @@
 owner: MasterBhuvnesh
 repo: haki
 provider: github
+releaseType: release
 updaterCacheDirName: haki-updater
 publisherName:
   - MasterBhuvnesh

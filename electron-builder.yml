@@ -15,6 +15,12 @@ asarUnpack:
   - resources/**
 win:
   executableName: haki
+  target:
+    - nsis
+  signingHashAlgorithms: ['sha256']
+  publisherName: ['MasterBhuvnesh']
+  certificateFile: key/MasterBhuvneshCert.pfx
+  certificatePassword: ${{ secrets.WINDOWS_CERT_PASSWORD }}
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}
