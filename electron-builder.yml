@@ -50,7 +50,6 @@ publish:
   repo: haki
   releaseType: release
   updaterCacheDirName: haki-updater
-  verifyUpdateCodeSignature: false
   publisherName:
     - MasterBhuvnesh
 electronDownload:
