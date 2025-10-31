@@ -48,9 +48,9 @@ npmRebuild: false
 publish:
   owner: MasterBhuvnesh
   repo: haki
-  provider: github
   releaseType: release
   updaterCacheDirName: haki-updater
+  verifyUpdateCodeSignature: false
   publisherName:
     - MasterBhuvnesh
 electronDownload:

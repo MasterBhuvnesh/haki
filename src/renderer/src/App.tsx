@@ -9,6 +9,7 @@ function App(): React.JSX.Element {
       <div className="welcome">Testing 16:00</div>
       <div className="welcome">3.7.0</div>
       <div className="welcome">pls pls</div>
+      <div className="welcome">final test</div>
 
       <div className="action">
         <a target="_blank" rel="noreferrer" onClick={ipcHandle}>
