@@ -32,7 +32,9 @@ jobs:
       - name: Restore code-signing certificate
         if: matrix.os == 'windows-latest'
         run: |
-          echo "${{ secrets.WINDOWS_CERT_BASE64 }}" | certutil -decode - key/MasterBhuvneshCert.pfx
+          echo "${{ secrets.WINDOWS_CERT_BASE64 }}" | certutil -decode - MasterBhuvneshCert.pfx
+        env:
+          WINDOWS_CERT_PASSWORD: ${{ secrets.WINDOWS_CERT_PASSWORD }}
 
       # - name: build-linux
       #   if: matrix.os == 'ubuntu-latest'

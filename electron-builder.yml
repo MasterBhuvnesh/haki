@@ -19,7 +19,8 @@ win:
     - nsis
   signingHashAlgorithms: ['sha256']
   publisherName: ['MasterBhuvnesh']
-  certificateFile: key/MasterBhuvneshCert.pfx
+  certificateFile: MasterBhuvneshCert.pfx
+  certificatePassword: ${WINDOWS_CERT_PASSWORD}
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}
