@@ -40,11 +40,13 @@ jobs:
       #   if: matrix.os == 'ubuntu-latest'
       #   run: npm run build:linux
 
-      - name: build-win
+      - name: Build Electron app
         if: matrix.os == 'windows-latest'
         run: npm run build:win
         env:
+          WINDOWS_CERT_PASSWORD: ${{ secrets.WINDOWS_CERT_PASSWORD }}
           CSC_KEY_PASSWORD: ${{ secrets.WINDOWS_CERT_PASSWORD }}
+          CSC_LINK: file://MasterBhuvneshCert.pfx
 
       - name: release
         uses: softprops/action-gh-release@v1
