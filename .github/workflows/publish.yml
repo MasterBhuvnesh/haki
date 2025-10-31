@@ -42,8 +42,7 @@ jobs:
         if: matrix.os == 'windows-latest'
         run: npm run build:win
         env:
-          WIN_CSC_LINK: key/MasterBhuvneshCert.pfx
-          WIN_CSC_KEY_PASSWORD: ${{ secrets.WINDOWS_CERT_PASSWORD }}
+          CSC_KEY_PASSWORD: ${{ secrets.WINDOWS_CERT_PASSWORD }}
 
       - name: release
         uses: softprops/action-gh-release@v1
